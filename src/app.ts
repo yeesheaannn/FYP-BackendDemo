@@ -12,6 +12,19 @@ import {
 
 const app = express();
 
+
+// Middleware to enable CORS for all routes
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "*");
+   // Handle OPTIONS requests immediately
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // Allows parsing of json in the body of the request.
 app.use(express.json());
 
